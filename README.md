@@ -1,16 +1,121 @@
-# React + Vite
+# Merchant Churn Risk Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A simple React dashboard that identifies merchants at risk of churning using a transparent, rule-based scoring system.
 
-Currently, two official plugins are available:
+The goal of this project is to demonstrate clear problem framing, explainable business logic, and actionable recommendations rather than relying on machine learning.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Problem
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Customer Success teams often need to identify merchants that may be at risk of churning so they can intervene before losing the customer.
 
-## Expanding the Oxlint configuration
+Since no historical data was provided, this project uses a rule-based risk engine instead of machine learning.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+The dashboard displays:
+
+- Merchant health
+- Risk score
+- Risk drivers
+- Recommended next action
+
+---
+
+## Assumptions
+
+The project assumes that merchant churn is influenced by observable engagement and business health signals.
+
+The following merchant attributes are used:
+
+- Revenue trend
+- Orders trend
+- Days since last login
+- Feature adoption
+- Open support tickets
+
+Industry is treated as contextual information only.
+
+Days until renewal influences recommendation urgency but **does not contribute to the risk score**, since renewal itself is not a churn indicator.
+
+---
+
+## Risk Score
+
+Each merchant receives a score between **0 and 100**.
+
+The score is calculated using weighted business rules.
+
+Signals considered include:
+
+- Revenue decline
+- Order decline
+- Login inactivity
+- Low feature adoption
+- Outstanding support issues
+
+The final score is categorized as:
+
+- Low
+- Medium
+- High
+
+Every score includes a list of explainable risk drivers.
+
+---
+
+## Recommendations
+
+Recommendations are generated from the merchant's actual business signals rather than only the final score.
+
+Examples include:
+
+- Re-engage inactive merchants
+- Improve feature adoption
+- Resolve support issues
+- Review declining business performance
+
+If a merchant has Medium or High risk and their renewal is within 7 days, the recommendation highlights the urgency of acting before renewal.
+
+---
+
+## Tech Stack
+
+- React
+- Vite
+- Tailwind CSS
+- JavaScript
+- Static JSON dataset
+
+---
+
+## Run Locally
+
+Clone the repository
+
+```bash
+git clone <repository-url>
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Start the development server
+
+```bash
+npm run dev
+```
+
+Build for production
+
+```bash
+npm run build
+```
+
+Deploy to GitHub Pages
+
+```bash
+npm run deploy
+```
